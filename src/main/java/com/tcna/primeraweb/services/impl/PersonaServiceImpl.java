@@ -3,16 +3,16 @@ package com.tcna.primeraweb.services.impl;
 import com.tcna.primeraweb.models.Persona;
 import com.tcna.primeraweb.repositories.PersonaRepository;
 import com.tcna.primeraweb.services.PersonaService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class PersonaServiceImpl implements PersonaService {
 
-    @Autowired
-    private PersonaRepository personaRepository;
+    private final PersonaRepository personaRepository;
 
     @Override
     public List<Persona> listarTodos() {

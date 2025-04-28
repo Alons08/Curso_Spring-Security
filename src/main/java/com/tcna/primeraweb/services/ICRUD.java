@@ -13,4 +13,6 @@ public interface ICRUD<T, K> {
     public T actualizar(K id, T objeto);
 
     public void eliminar(K id);
+
 }
+

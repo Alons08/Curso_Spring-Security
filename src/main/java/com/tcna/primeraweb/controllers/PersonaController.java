@@ -2,7 +2,7 @@ package com.tcna.primeraweb.controllers;
 
 import com.tcna.primeraweb.models.Persona;
 import com.tcna.primeraweb.services.PersonaService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,10 +11,10 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/personas")
+@RequiredArgsConstructor
 public class PersonaController {
 
-    @Autowired
-    private PersonaService service;
+    private final PersonaService service;
 
     @GetMapping("")
     public String listarPersonas(Model model){
@@ -57,4 +57,5 @@ public class PersonaController {
         service.eliminar(id);
         return ("redirect:/personas");
     }
+
 }

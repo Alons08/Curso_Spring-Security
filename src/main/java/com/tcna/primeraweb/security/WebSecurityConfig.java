@@ -16,12 +16,12 @@ public class WebSecurityConfig {
     @Bean
     public InMemoryUserDetailsManager userDetailsManager(){
         UserDetails user1 = User.builder()
-                .username("user3")
+                .username("user4")
                 .password("{bcrypt}$2a$10$mnCAREL8Vizbm.qn9MxSX.6ULTx4em6TRFH0DCnQqmsW94YUOwWJi")
                 .roles("USER")
                 .build();
         UserDetails user2 = User.builder()
-                .username("admin3")
+                .username("admin4")
                 .password("{bcrypt}$2a$10$mnCAREL8Vizbm.qn9MxSX.6ULTx4em6TRFH0DCnQqmsW94YUOwWJi")
                 .roles("ADMIN")
                 .build();
