@@ -5,9 +5,21 @@
     <meta charset="UTF-8">
     <title>Listado de personas</title>
 </head>
-<body>
 
+<body>
     <div align="center">
+        <!--Los 2 siguientes son para lo de Spring Security-->
+        <div sec:authorize="isAuthenticated()">
+            <p th:inline="text">Bienvenido <span sec:authentication="name"></span></p>
+            <form th:action="@{/logout}" method="post">
+                <input type="submit" value="Cerrar Sesión"/>
+            </form>
+        </div>
+        <div sec:authorize="isAnonymous()">
+            <p>Bienvenido visitante</p>
+            <a th:href="@{/login}">Iniciar sesión</a>
+        </div>
+
         <h1>Listado de personas</h1>
         <table border="1" cellpadding="10">
             <tr>
@@ -31,8 +43,6 @@
         <div sec:authorize="hasAnyRole('ADMIN','USER')">
             <a href="/personas/nuevo">Nueva persona</a>
         </div>
-
     </div>
-
 </body>
 </html>
