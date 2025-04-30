@@ -2,6 +2,8 @@ package com.tcna.primeraweb.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -16,5 +18,17 @@ public class User {
     private String username;
     private String password;
     private boolean enabled;
-    private String role;
+
+    //HashSet porque puede tener un conjunto de roles (varios roles)
+    //Set porque no pueden haber elementos repetidos, o sea los roles son únicos
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<>();
+
 }
+
+

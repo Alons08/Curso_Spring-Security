@@ -10,7 +10,9 @@
     <div align="center">
         <!--Los 2 siguientes son para lo de Spring Security-->
         <div sec:authorize="isAuthenticated()">
-            <p th:inline="text">Bienvenido <span sec:authentication="name"></span></p>
+            Bienvenido <b><span sec:authentication="name">Username</span></b>
+            &nbsp;
+            <b><span sec:authentication="principal.authorities">Roles</span></b>
             <form th:action="@{/logout}" method="post">
                 <input type="submit" value="Cerrar Sesión"/>
             </form>
@@ -26,23 +28,26 @@
                 <th>ID</th>
                 <th>Nombre</th>
                 <th>Edad</th>
-                <th sec:authorize="hasRole('ADMIN')">Acciones</th>
+                <th sec:authorize="hasAnyAuthority('ADMIN','EDITOR')">Acciones</th>
             </tr>
             <tr th:each="persona : ${listaPersonas}">
                 <td th:text="${persona.id}"></td>
                 <td th:text="${persona.nombre}"></td>
                 <td th:text="${persona.edad}"></td>
-                <td sec:authorize="hasRole('ADMIN')">
+                <td sec:authorize="hasAnyAuthority('ADMIN','EDITOR')">
                     <!--           la url(el id tiene el valor de)-->
                     <a th:href="@{/personas/editar/{id}(id=${persona.id})}">Editar</a>
-                    <a th:href="@{/personas/eliminar/{id}(id=${persona.id})}">Eliminar</a>
+                    <a sec:authorize="hasAuthority('ADMIN')"
+                       th:href="@{/personas/eliminar/{id}(id=${persona.id})}">Eliminar
+                    </a>
                 </td>
             </tr>
         </table>
 
-        <div sec:authorize="hasAnyRole('ADMIN','USER')">
+        <div sec:authorize="hasAnyAuthority('ADMIN','CREATOR')">
             <a href="/personas/nuevo">Nueva persona</a>
         </div>
     </div>
 </body>
 </html>
+

@@ -53,9 +53,11 @@ public class WebSecurityConfig {
     protected SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeHttpRequests(
                 auth -> auth
-                        .requestMatchers("/personas").permitAll()
-                        .requestMatchers("/personas/nuevo").hasAnyRole("ADMIN", "USER")
-                        .requestMatchers("/personas/editar/*", "/personas/eliminar/*").hasRole("ADMIN")
+                        .requestMatchers("/personas").hasAnyAuthority("ADMIN","USER","CREATOR","EDITOR")
+                        .requestMatchers("/personas/nuevo").hasAnyAuthority("ADMIN","CREATOR")
+                        .requestMatchers("/personas/editar/*").hasAnyAuthority("ADMIN","EDITOR")
+                        .requestMatchers("/personas/eliminar/*").hasAuthority("ADMIN")
+                        //.requestMatchers("/personas/editar/*", "/personas/eliminar/*").hasRole("ADMIN")
                         .anyRequest().authenticated()
         )
                 .formLogin(form -> form
